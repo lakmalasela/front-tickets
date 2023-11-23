@@ -1,0 +1,45 @@
+<div [@routerTransition]>
+    <div class="row">
+        <div class="col-md-12">
+
+              <!-- <p>Display Columns: {{ displayColumn | json }}</p> -->
+              <table  class="table table-bordered">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th *ngFor="let header of headers">{{ header }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of data  | paginate: { itemsPerPage: 10, currentPage: page }">
+                        <td *ngFor="let column of displayColumn">{{ row[column] }}</td>
+
+
+                        <td>
+                            <button class="btn btn-success btn-add"  (click)="fillData(row)">View</button>
+                            <button class="btn btn-danger" style="margin-left: 5vh;" (click)="deleteData(row.id)">Delete</button>
+                            
+                        </td>
+                        
+                    </tr>
+
+                   
+                </tbody>
+            </table>
+           
+            <div class="has-text-centered">
+                <pagination-controls (pageChange)="page = $event"></pagination-controls>
+            </div>
+           
+<!-- 
+            <div class="card mb-3">
+                <div class="card-header">Striped Rows</div>
+                <div class="card-body table-responsive">
+                
+
+
+                  
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,297 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Employee Management'"></app-page-header>
+
+    <div class="row mb-4">
+        <div class="col-lg-12">
+
+           
+            <form #form="ngForm" (submit)="onSubmit(form)">
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                <fieldset class="form-group">
+                    <label>Full Name</label>
+                    <input
+                        class="form-control"
+                        [ngClass]="{ 'invalid-input': fullname.invalid && fullname.dirty }"
+                        pattern="^[A-Z][a-z]*(\s[A-Z][a-z]*)*$"
+                        required
+                        name="fullname"
+                        #fullname="ngModel"
+                        [(ngModel)]="service.fromData.fullname"
+                    />
+
+                    <div *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)" class="error-message">
+                        <div *ngIf="fullname.errors?.required">Full Name is required</div>
+                        <div *ngIf="fullname.errors?.pattern">Enter a valid Full Name</div>
+                    </div>
+                </fieldset>
+    
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset class="form-group">
+                            <label>NIC</label>
+                            <input
+                                name="nic"
+                                [ngClass]="{ 'invalid-input': nic.invalid && nic.dirty }"
+                                pattern="^(([0-9]{9}[vVxX])|([0-2]{12}))$"
+                                required
+                                #nic="ngModel"
+                                [(ngModel)]="service.fromData.nic"
+                                class="form-control"
+                            />
+        
+                            <div *ngIf="fullname.invalid && (nic.dirty || nic.touched)" class="error-message">
+                                <div *ngIf="nic.errors?.required">NIC is required</div>
+                                <div *ngIf="nic.errors?.pattern">Enter a valid NIC</div>
+                            </div>
+                            <!-- <div *ngIf="!nic.valid && nic.dirty">
+                                NIC is invalid.
+                            </div> -->
+                        </fieldset>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6">
+    
+                        <fieldset class="form-group mt-4">
+                            <label>Mobile No</label>
+                            <input
+                                name="mobileno"
+                                [ngClass]="{ 'invalid-input': mobileno.invalid && mobileno.dirty }"
+                                pattern="^[0][0-9]{9}$"
+                                required
+                                #mobileno="ngModel"
+                                [(ngModel)]="service.fromData.mobileno"
+                                class="form-control"
+                            />
+        
+                            <div *ngIf="mobileno.invalid && (mobileno.dirty || mobileno.touched)" class="error-message">
+                                <div *ngIf="mobileno.errors?.required">Mobile no required</div>
+                                <div *ngIf="mobileno.errors?.pattern">Enter a valid Mobile no</div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        
+
+                <div class="form-group mt-4">
+                    <label for="exampleFormControlSelect1">Select Civil Status</label>
+                    <select
+                        class="form-control"
+                        required
+                        id="exampleFormControlSelect1"
+                        #civilstatusModel="ngModel"
+                        name="civilstatus"
+                        [(ngModel)]="service.fromData.civilstatus"
+                        [ngModelOptions]="{ standalone: true }"
+                    >
+                        <option>Select Civil Status</option>
+                        <option *ngFor="let status of civilstatus">{{ status }}</option>
+                    </select>
+
+                    <div
+                        *ngIf="civilstatusModel.invalid && (civilstatusModel.dirty || civilstatusModel.touched)"
+                        class="error-message"
+                    >
+                        <div *ngIf="civilstatusModel.errors?.required">Designation no required</div>
+                        <div class="text-danger">Please select a Civil Status.</div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mt-4">
+                            <label for="exampleFormControlSelect1">Designation</label>
+                            <select
+                                class="form-control"
+                                id="exampleFormControlSelect1"
+                                #designationModel="ngModel"
+                                required
+                                name="designation"
+                                [(ngModel)]="service.fromData.designation"
+                                [ngModelOptions]="{ standalone: true }"
+                            >
+                                <option>Select Designation</option>
+                                <option *ngFor="let onedesingnation of designation">{{ onedesingnation }}</option>
+                            </select>
+        
+                            <div
+                                *ngIf="designationModel.invalid && (designationModel.dirty || designationModel.touched)"
+                                class="error-message"
+                            >
+                                <div *ngIf="designationModel.errors?.required">Designation no required</div>
+                                <div class="text-danger">Please select a Branch.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                        <fieldset class="form-group">
+                            <label>Calling Name</label>
+                            <input
+                                class="form-control"
+                                [ngClass]="{ 'invalid-input': callingname.invalid && callingname.dirty }"
+                                pattern="^[A-Z][a-z]*$"
+                                name="callingname"
+                                required
+                                #callingname="ngModel"
+                                [(ngModel)]="service.fromData.callingname"
+                            />
+        
+                            <div
+                                *ngIf="callingname.invalid && (callingname.dirty || callingname.touched)"
+                                class="error-message"
+                            >
+                                <div *ngIf="callingname.errors?.required">Calling Name no required</div>
+                                <div *ngIf="callingname.errors?.pattern">Enter a valid Calling Name</div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6">
+    
+                        <fieldset class="form-group mt-4">
+                            <label>Date Of Birth</label>
+                            <input
+                                type="date"
+                                name="dob"
+                                #dobModel="ngModel"
+                                required
+                                [(ngModel)]="service.fromData.dob"
+                                class="form-control"
+                            />
+        
+                            <div *ngIf="dobModel.invalid && (dobModel.dirty || dobModel.touched)" class="error-message">
+                                <div *ngIf="dobModel.errors?.required">Date Of Birth no required</div>
+                                <div *ngIf="dobModel.errors?.pattern">Enter a valid Date Of Birth</div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        
+                <div class="form-group mt-4">
+                    <label>Branch</label>
+                    <select
+                        class="form-control"
+                        required
+                        name="branch"
+                        #branchModel="ngModel"
+                        [(ngModel)]="service.fromData.branch"
+                        [ngModelOptions]="{ standalone: true }"
+                    >
+                        <option>Select the Branch</option>
+                        <option *ngFor="let onebranch of branch">{{ onebranch }}</option>
+                    </select>
+
+                    <div
+                        *ngIf="branchModel.invalid && (branchModel.dirty || branchModel.touched)"
+                        class="error-message"
+                    >
+                        <div *ngIf="branchModel.errors?.required">Branch required</div>
+                        <div class="text-danger">Please select a Branch.</div>
+                    </div>
+                </div>
+               
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-6">
+    
+                        <fieldset class="form-group mt-4">
+                            <label>Gender</label>
+                            <div class="radio">
+                                <label>
+                                    <input
+                                        id="optionsRadios1"
+                                        name="gender"
+                                        [(ngModel)]="service.fromData.gender"
+                                        type="radio"
+                                        [value]="true"
+                                    />
+                                    Male
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input
+                                        id="optionsRadios2"
+                                        name="gender"
+                                        type="radio"
+                                        #gender="ngModel"
+                                        [(ngModel)]="service.fromData.gender"
+                                        [value]="false"
+                                    />
+                                    Female
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+
+
+                        <fieldset class="form-group mt-4">
+                            <label for="exampleInputFile">Photo Image</label> &NonBreakingSpace;
+                            <input
+                                class="form-control-file"
+                                name="photo"
+                                id="exampleInputFile"
+                                #photo="ngModel"
+                                [(ngModel)]="service.fromData.photo"
+                                type="file"
+                            />
+                        </fieldset>
+                        
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            
+                <div class="mt-4">
+                    <button class="btn btn-success btn-add" type="submit">Add</button>
+                    <button class="btn btn-warning button-set" type="button" (click)="UpdateEmployee(form)">Update</button>
+                    <button class="btn btn-primary button-set" type="button" (click)="resetData(form)">Reset</button>
+                </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+
+
+
+
+
+            
+
+
+              
+
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <app-page-header [heading]="'Employee Details'" [icon]="'fa-table'"></app-page-header>
+                <app-tables
+                    [data]="employeeData"
+                    [headers]="employeeFields"
+                    [displayColumn]="displayedColumns"
+                    (passData)="fillData($event)"
+                    (deleteDataitem) ="deleteData($event)"
+                ></app-tables>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>

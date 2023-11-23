@@ -1,0 +1,149 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Ticket Issue'"></app-page-header>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <form [formGroup]="ticketGroup"  (submit)="onSubmit(form)">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <fieldset class="form-group">
+                            <label for="inputquantity4">Ticket No*</label>
+                            <input type="text" class="form-control" formControlName="ticketnumber" disabled>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset class="form-group">
+                            <label>Description</label>
+
+                            <textarea rows="3" formControlName="description" class="form-control" ></textarea>
+
+                        </fieldset>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <label for="exampleFormControlSelect1">Issue Type</label>
+                        <select   [ngClass]="{
+                            'is-invalid':
+                                submitted && f.issuetype.errors
+                        }" class="form-control" formControlName="issuetype">
+                            <option *ngFor="let issue of issueTypeList" [ngValue]="issue.name"  >{{issue?.name}}
+                            </option>
+                         </select>
+                        <div *ngIf="submitted && f.issuetype.errors" class="invalid-feedback">
+                          <div *ngIf="f.issuetype.errors.required">
+                            Issue type is required
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+           
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mt-4">
+                            <label for="exampleFormControlSelect1">Technician</label>
+                            <select  [ngClass]="{
+                                'is-invalid':
+                                    submitted && f.assignerId.errors
+                            }" class="form-control" formControlName="assignerId">
+                                <option value="">Choose your injury</option>
+                                <option *ngFor="let tec of technicianList" [ngValue]="tec.id"  >{{tec?.callingname
+                                }}
+                                </option>
+                             </select>
+                            <div *ngIf="submitted && f.assignerId.errors" class="invalid-feedback">
+                              <div *ngIf="f.assignerId.errors.required">
+                               Technician is required
+                              </div>
+                            </div>
+                        </div>
+                      
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mt-4">
+                            <label for="exampleFormControlSelect1">Priority Type</label>
+                            <select  [ngClass]="{
+                                'is-invalid':
+                                    submitted && f.prioritytype.errors
+                            }" class="form-control" formControlName="prioritytype">
+                                <option *ngFor="let pr of prorityType" [ngValue]="pr.id"  >{{pr.name}}
+                                </option>
+                             </select>
+                            <div *ngIf="submitted && f.prioritytype.errors" class="invalid-feedback">
+                              <div *ngIf="f.prioritytype.errors.required">
+                               Technician is required
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group mt-4">
+            <label for="exampleFormControlSelect1">Item</label>
+            <select  [ngClass]="{
+                'is-invalid':
+                    submitted && f.inventoryId.errors
+            }" class="form-control" formControlName="inventoryId">
+                <option value="">Choose your priority Type</option>
+                <option *ngFor="let pr of inventoryList" [ngValue]="2"  >{{pr.items.itemname}}
+                </option>
+             </select>
+            <div *ngIf="submitted && f.inventoryId.errors" class="invalid-feedback">
+              <div *ngIf="f.inventoryId.errors.required">
+               Inventory is required
+              </div>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+                <div class="mt-4">
+                    <button class="btn btn-success btn-add" type="submit">Add</button>
+                    <button class="btn btn-warning button-set" type="button" (click)="UpdateEmployee(form)">Update</button>
+                    <button class="btn btn-primary button-set" type="button" (click)="resetData(form)">Reset</button>
+                </div>
+            </div>
+
+            <div class="col-md-6"></div>
+          </div>     
+
+              
+
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <app-page-header [heading]="'Ticket Details'" [icon]="'fa-table'"></app-page-header>
+                <app-tables
+                    [data]="taskList"
+                    [headers]="employeeFields"
+                    [displayColumn]="displayedColumns"
+                    (passData)="fillData($event)"
+                    (deleteDataitem) ="deleteData($event)"
+                ></app-tables>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
